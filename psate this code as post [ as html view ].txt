@@ -1,0 +1,244 @@
+<div style="text-align:center; margin-top:40px;">
+
+<button onclick="startPrank()" style="
+padding:18px 40px;
+font-size:28px;
+font-weight:bold;
+background:#00ff66;
+color:#000;
+border:none;
+border-radius:12px;
+cursor:pointer;
+box-shadow:0 0 20px #00ff66;
+">
+CLICK HERE
+</button>
+
+</div>
+
+<div id="storyScreen" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:#111;
+color:#fff;
+z-index:999998;
+font-family:Arial,sans-serif;
+padding:40px;
+box-sizing:border-box;
+overflow:hidden;
+">
+
+<div id="storyBox" style="
+max-width:800px;
+margin:auto;
+margin-top:10vh;
+font-size:28px;
+line-height:1.7;
+text-align:center;
+transition:0.2s;
+">
+
+DARK WEB DROP<br><br>
+EPSTEIN DATA PACK<br><br>
+Logs + Contacts + Notes<br><br>
+Recovered Last Night<br><br>
+Sensitive Names Inside<br><br>
+Not Safe To Share
+
+</div>
+
+</div>
+
+<div id="prankScreen" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100vw;
+height:100vh;
+background:#000;
+z-index:999999;
+overflow:hidden;
+font-family:monospace;
+">
+
+<canvas id="matrixCanvas" style="
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+"></canvas>
+
+<div id="hackText" style="
+position:absolute;
+top:42%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:68px;
+font-weight:bold;
+color:#ff0000;
+text-align:center;
+width:100%;
+letter-spacing:3px;
+animation:blink 0.7s infinite;
+text-shadow:0 0 10px #ff0000,0 0 25px #ff0000;
+">
+YOU'RE HACKED
+</div>
+
+<div id="subText" style="
+position:absolute;
+top:56%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:28px;
+font-weight:bold;
+color:#ffffff;
+text-align:center;
+width:100%;
+text-shadow:0 0 10px #fff;
+">
+YOUR DEVICE HAS BEEN COMPROMISED
+</div>
+
+<div id="finalText" style="
+display:none;
+position:absolute;
+top:50%;
+left:50%;
+transform:translate(-50%,-50%);
+font-size:54px;
+font-weight:bold;
+color:#ffffff;
+text-align:center;
+width:100%;
+line-height:1.6;
+text-shadow:0 0 10px #fff,0 0 25px #00ff00;
+">
+YOU JUST GOT PRANKED 😄<br><br>
+follow @smash8z<br>
+for more cool stuff like this
+</div>
+
+</div>
+
+<style>
+@keyframes blink{
+50%{opacity:0.18;}
+}
+
+@keyframes glitch{
+0%{transform:translate(0);}
+20%{transform:translate(-6px,3px);}
+40%{transform:translate(6px,-3px);}
+60%{transform:translate(-4px,-2px);}
+80%{transform:translate(4px,2px);}
+100%{transform:translate(0);}
+}
+
+.glitch{
+animation:glitch 0.08s infinite;
+filter:contrast(1.4);
+}
+</style>
+
+<script>
+let canvas = document.getElementById("matrixCanvas");
+let ctx = canvas.getContext("2d");
+let drops = [];
+let fontSize = 18;
+let columns = 0;
+let running = false;
+let colorTimer;
+
+function resizeCanvas(){
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+columns = Math.floor(canvas.width / fontSize);
+drops = [];
+
+for(let i=0;i<columns;i++){
+drops[i] = Math.random() * canvas.height/fontSize;
+}
+}
+
+function randomColor(){
+let colors = [
+"#00ff00","#00cc00","#33ff33",
+"#ff0000","#cc0000","#ff3333"
+];
+return colors[Math.floor(Math.random()*colors.length)];
+}
+
+function randomChar(){
+let chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ#$%&*@!?/\\<>[]{}+-=HACKEDSYSTEMERRORACCESSDENIED";
+return chars[Math.floor(Math.random()*chars.length)];
+}
+
+function drawMatrix(){
+if(!running) return;
+
+ctx.fillStyle = "rgba(0,0,0,0.08)";
+ctx.fillRect(0,0,canvas.width,canvas.height);
+
+ctx.font = fontSize + "px monospace";
+
+for(let i=0;i<drops.length;i++){
+let text = randomChar();
+ctx.fillStyle = randomColor();
+ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+if(drops[i] * fontSize > canvas.height && Math.random() > 0.975){
+drops[i] = 0;
+}
+
+drops[i]++;
+}
+
+requestAnimationFrame(drawMatrix);
+}
+
+function launchHack(){
+document.getElementById("storyScreen").style.display="none";
+document.getElementById("prankScreen").style.display="block";
+
+resizeCanvas();
+running=true;
+drawMatrix();
+
+colorTimer=setInterval(function(){
+let txt=document.getElementById("hackText");
+let c=randomColor();
+txt.style.color=c;
+txt.style.textShadow="0 0 10px "+c+",0 0 25px "+c;
+},300);
+
+setTimeout(function(){
+document.getElementById("hackText").style.display="none";
+document.getElementById("subText").style.display="none";
+document.getElementById("finalText").style.display="block";
+clearInterval(colorTimer);
+},20000);
+}
+
+function startPrank(){
+document.body.style.overflow="hidden";
+document.getElementById("storyScreen").style.display="block";
+
+setTimeout(function(){
+document.getElementById("storyBox").classList.add("glitch");
+document.getElementById("storyScreen").classList.add("glitch");
+},5000);
+
+setTimeout(function(){
+launchHack();
+},7000);
+}
+
+window.onresize = resizeCanvas;
+</script>
