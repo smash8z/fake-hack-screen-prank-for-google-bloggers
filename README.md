@@ -5,7 +5,7 @@ its works with Google Bloggers
 first create a google blogger then follow the steps 
 
 go to theme option of blogger
-go change theme tap edit html and them select everything from there and remove all and then paste this html code - theme code  and same this theme 
+go change theme tap edit html and then select everything from there and remove all and then paste this html code - theme code - as theme 
 then go and create a new post and change the view from compose to html view and then paste the - post code - as post and publish it 
 
 now copy the post link and you are ready to  go have fun with your friends
