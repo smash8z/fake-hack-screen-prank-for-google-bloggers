@@ -10,3 +10,6 @@ then go and create a new post and change the view from compose to html view and 
 
 now copy the post link and you are ready to  go have fun with your friends
 
+or if you dont want these stupid things to do just copy this link and share with you friends to have fun 
+premade link - https://survillance21708370218474.blogspot.com/2026/04/epsdarkteinfiles.html
+[not permanent ]
